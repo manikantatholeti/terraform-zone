@@ -52,35 +52,35 @@ resource "aws_internet_gateway" "test-igw" {
 }
 
 /* Elastic IP for NAT */
-resource "aws_eip" "test-nat-eip" {
-  vpc        = true
-  depends_on = [aws_internet_gateway.test-igw]
-    tags = {
-    Name = "test-nat-eip"
-  }
-}
-
-## Test NAT gateway creation ##
-resource "aws_nat_gateway" "test-NGW" {
-  allocation_id = "${aws_eip.test-nat-eip.id}"
-  subnet_id     = "${element(aws_subnet.test-public-subnet.*.id, 0)}"
-  tags = {
-    Name        = "${var.testngwname}"
-    # Environment = "${var.environment}"
-  }
-}
-
-# resource "aws_route_table" "test-public-rtb" {
-#   vpc_id = aws_vpc.test-vpc.id
-
-#   route {
-#     cidr_block = "0.0.0.0/0"
-#     gateway_id = aws_internet_gateway.test-igw.id
-#   }
-#   tags = {
-#     Name = "test-public-rtb"
+# resource "aws_eip" "test-nat-eip" {
+#   vpc        = true
+#   depends_on = [aws_internet_gateway.test-igw]
+#     tags = {
+#     Name = "test-nat-eip"
 #   }
 # }
+
+## Test NAT gateway creation ##
+# resource "aws_nat_gateway" "test-NGW" {
+#   allocation_id = "${aws_eip.test-nat-eip.id}"
+#   subnet_id     = "${element(aws_subnet.test-public-subnet.*.id, 0)}"
+#   tags = {
+#     Name        = "${var.testngwname}"
+#     # Environment = "${var.environment}"
+#   }
+# }
+
+resource "aws_route_table" "test-public-rtb" {
+  vpc_id = aws_vpc.test-vpc.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.test-igw.id
+  }
+  tags = {
+    Name = "test-public-rtb"
+  }
+}
 # resource "aws_route_table" "test-private-rtb" {
 #   vpc_id = aws_vpc.test-vpc.id
 

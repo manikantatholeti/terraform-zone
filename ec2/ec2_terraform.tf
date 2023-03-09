@@ -4,12 +4,12 @@ provider "aws" {
 }
 
 resource "aws_instance" "sample" {
-  ami           = "ami-06984ea821ac0a879"
+  ami           = "ami-0f8ca728008ff5af4"
   instance_type = "t2.micro"
-  key_name  = "manikey"
+  key_name  = "veeru"
   # vpc_security_group_ids = "sg-033636df704a2c90f"
   security_groups = ["launch-wizard-1","default"]
     tags = {
-    "Name" = "mani"
+    "Name" = "jenkinstf"
   }
 }
