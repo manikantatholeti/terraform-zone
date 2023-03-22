@@ -13,3 +13,9 @@
 #     "Name" = "jenkinstf"
 #   }
 # }
+
+module "ec2_instance" {
+  source  = "../modules/ec2-module"
+  instancetype = "t2.micro"
+  # version = "~> 4.0"
+}
